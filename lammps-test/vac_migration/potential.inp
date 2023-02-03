@@ -1,0 +1,7 @@
+#pair_style 	pace	
+#pair_coeff 	* * copper.yace Cu
+pair_style hybrid/overlay pace table linear 6901
+pair_coeff * * pace potential.yace Cu
+pair_coeff 1 1 table potential.table Cu_Cu
+#pair_style eam/alloy
+#pair_coeff * * Cu.eam.alloy Cu

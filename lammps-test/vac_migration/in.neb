@@ -1,0 +1,37 @@
+units 	metal 	
+dimension 	3 	
+boundary 	p p p 	
+atom_style 	atomic 
+atom_modify map yes
+read_data 	initial_new.lmp 	
+include 	potential.inp 	
+variable dumptime 	equal 100 	
+variable thermotime 	equal 100 	
+#min_style 	cg 	
+
+compute energy all pe/atom 
+dump 1 	all custom ${dumptime} dump.out id type element xsu ysu zsu fx fy fz
+dump 4 	all custom ${dumptime} dump.cfg id type element x y z fx fy fz c_energy
+dump 5 	all custom ${dumptime} lmp_dump.xyz id type element x y z fx fy fz c_energy
+dump_modify 5 sort id element Cu
+dump_modify 4 sort id element Cu
+dump_modify 1 sort id format line "%d %d %s %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g" 	
+dump_modify 1 element Cu
+
+
+#dump 2 all custom ${dumptime} dump_e_atom.out id type xsu ysu zsu c_peratom
+#dump_modify 2 sort id format line "%d %d %20.15g %20.15g %20.15g %20.15g"
+
+dump 3 all custom 100 dump3_*.out id type x y z
+dump_modify 3 sort id
+
+thermo_style 	custom step temp pe etotal pxx pxy pxz pyy pyz pzz vol 	
+thermo_modify 	format float %20.15g 	
+thermo 	${thermotime} 	
+#fix         br all box/relax x 10. y 10. z 10. 
+#minimize 	0.0 0.0001 100000 10000000 	
+#unfix		br
+fix 1 all neb 1.0
+min_style fire
+timestep 0.005
+neb 0.0 0.0001 10000 5000 500 final coords.final
