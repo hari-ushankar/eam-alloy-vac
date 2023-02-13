@@ -15,11 +15,12 @@ Bpair = pair_basis(species = [:Cu],
 B = JuLIP.MLIPs.IPSuperBasis([Bpair, ACE_B]);
 Vref = OneBody(:Cu => -3.54)
 weights = Dict(
-        "bulk" => Dict("E" => 1.0, "F" => 1.0 , "V" => 1.0 ),
+        "bulk" => Dict("E" => 3.0, "F" => 2.0 , "V" => 2.0 ),
+        "cell_deform" => Dict("E" => 1.0, "F" => 1.0 , "V" => 1.0)
         );
 ##
 train = [ACE1pack.AtomsData(t,"energy","forces","stress",weights,Vref) for t in data]
-train_data = train[275:end]
+#train_data = train[275:end]
 A, Y, W = ACEfit.linear_assemble(train, B);
 ##
 solver_type = :lsqr
@@ -56,5 +57,5 @@ potential = JuLIP.MLIPs.SumIP(Vref, JuLIP.MLIPs.combine(B, results["C"]))
 @info("Training Error Table")
 ACE1pack.linear_errors(train, potential);
 
-save_dict("./copper_gb.json", Dict("IP" => write_dict(potential)))
-ACE1pack.ExportMulti.export_ACE("./copper_gb.yace", potential; export_pairpot_as_table=true)
+save_dict("./potential.json", Dict("IP" => write_dict(potential)))
+ACE1pack.ExportMulti.export_ACE("./potential.yace", potential; export_pairpot_as_table=true)

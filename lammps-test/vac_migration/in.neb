@@ -3,7 +3,7 @@ dimension 	3
 boundary 	p p p 	
 atom_style 	atomic 
 atom_modify map yes
-read_data 	initial_new.lmp 	
+read_data 	bulkCu_small.lmp	
 include 	potential.inp 	
 variable dumptime 	equal 100 	
 variable thermotime 	equal 100 	

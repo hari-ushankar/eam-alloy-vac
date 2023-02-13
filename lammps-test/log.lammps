@@ -11,7 +11,7 @@ WARNING: Triclinic box skew is large. LAMMPS will run inefficiently. (../domain.
   1 by 1 by 1 MPI processor grid
   reading atoms ...
   215 atoms
-  read_data CPU = 0.001 seconds
+  read_data CPU = 0.002 seconds
 include 	potential.inp
 #pair_style 	pace
 #pair_coeff 	* * copper.yace Cu
@@ -25,7 +25,7 @@ Total number of basis functions
 Mapping LAMMPS atom type #1(Cu) -> ACE species type #0
 pair_coeff 1 1 table potential.table Cu_Cu
 Reading pair table potential file potential.table with DATE: none
-WARNING: 4 of 6901 force values in table Cu_Cu are inconsistent with -dE/dr.
+WARNING: 2 of 6901 force values in table Cu_Cu are inconsistent with -dE/dr.
 WARNING:  Should only be flagged at inflection points (../pair_table.cpp:466)
 #pair_style eam/alloy
 #pair_coeff * * Cu.eam.alloy Cu
@@ -77,30 +77,30 @@ Neighbor list info ...
       bin: standard
 Per MPI rank memory allocation (min/avg/max) = 10.66 | 10.66 | 10.66 Mbytes
    Step          Temp          PotEng         TotEng          Pxx            Pxy            Pxz            Pyy            Pyz            Pzz           Volume    
-         0                     0    -761.104566406298    -761.104566406298    -26.7356634302781 1.83214173776113e-07 1.29580946721104e-07    -26.7357169628393 2.37213256797206e-05    -26.7357826316003     2551.04820180899
-        23                     0    -761.265406023842    -761.265406023842     638.018385905392  6.4055895206672e-07 4.52952072348441e-07     638.018334395437 2.22112261073043e-05     638.018276881043     2551.04820180899
-Loop time of 0.267951 on 1 procs for 23 steps with 215 atoms
+         0                     0    -761.085138741739    -761.085138741739    -16.7862955988623 9.17261372830345e-08 6.48635779207594e-08    -16.7863218584908 1.17745727656499e-05    -16.7863542568106     2551.04820180899
+        57                     0    -761.167315479797    -761.167315479797     326.910587925406 3.36960232715478e-07 2.38261611272057e-07     326.910562707053 1.09998224967222e-05     326.910534364782     2551.04820180899
+Loop time of 0.495219 on 1 procs for 57 steps with 215 atoms
 
-99.9% CPU use with 1 MPI tasks x no OpenMP threads
+99.8% CPU use with 1 MPI tasks x no OpenMP threads
 
 Minimization stats:
   Stopping criterion = force tolerance
   Energy initial, next-to-last, final = 
-     -761.104566406298  -761.265406013796  -761.265406023842
-  Force two-norm initial, final = 0.48936734 7.5317465e-05
-  Force max component initial, final = 0.13646524 1.1408255e-05
-  Final line search alpha, max atom move = 1 1.1408255e-05
-  Iterations, force evaluations = 23 23
+     -761.085138741739  -761.167315468082  -761.167315479797
+  Force two-norm initial, final = 0.24448197 9.8386797e-05
+  Force max component initial, final = 0.06816459 1.7171313e-05
+  Final line search alpha, max atom move = 1 1.7171313e-05
+  Iterations, force evaluations = 57 57
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 0.26361    | 0.26361    | 0.26361    |   0.0 | 98.38
+Pair    | 0.49017    | 0.49017    | 0.49017    |   0.0 | 98.98
 Neigh   | 0          | 0          | 0          |   0.0 |  0.00
-Comm    | 0.00045511 | 0.00045511 | 0.00045511 |   0.0 |  0.17
+Comm    | 0.0011148  | 0.0011148  | 0.0011148  |   0.0 |  0.23
 Output  | 0          | 0          | 0          |   0.0 |  0.00
 Modify  | 0          | 0          | 0          |   0.0 |  0.00
-Other   |            | 0.003882   |            |       |  1.45
+Other   |            | 0.003939   |            |       |  0.80
 
 Nlocal:            215 ave         215 max         215 min
 Histogram: 1 0 0 0 0 0 0 0 0 0

@@ -17,14 +17,14 @@ include 	potential.inp
 pair_style hybrid/overlay pace table linear 6901
 ACE version: 2022.6.27
 Recursive evaluator is used
-pair_coeff * * pace potential.yace Cu
-Loading potential.yace
+pair_coeff * * pace ../potential.yace Cu
+Loading ../potential.yace
 Total number of basis functions
 	Cu: 6 (r=1) 23 (r>1)
 Mapping LAMMPS atom type #1(Cu) -> ACE species type #0
-pair_coeff 1 1 table potential.table Cu_Cu
-Reading pair table potential file potential.table with DATE: none
-WARNING: 4 of 6901 force values in table Cu_Cu are inconsistent with -dE/dr.
+pair_coeff 1 1 table ../potential_pairpot.table Cu_Cu
+Reading pair table potential file ../potential_pairpot.table with DATE: none
+WARNING: 3 of 6901 force values in table Cu_Cu are inconsistent with -dE/dr.
 WARNING:  Should only be flagged at inflection points (../pair_table.cpp:466)
 #pair_style eam/alloy
 #pair_coeff * * Cu.eam.alloy Cu
@@ -76,30 +76,30 @@ Neighbor list info ...
       bin: standard
 Per MPI rank memory allocation (min/avg/max) = 10.6 | 10.6 | 10.6 Mbytes
    Step          Temp          PotEng         TotEng          Pxx            Pxy            Pxz            Pyy            Pyz            Pzz           Volume    
-         0                     0    -906.229948403704    -906.229948403704    -4.23539723849087 -6.50280588120379e-12 4.98235904384006e-13    -4.23539723849342 -3.32218553218413e-12    -4.23539723849253          3023.464536
-         1                     0    -906.229948403704    -906.229948403704     -4.2353972384994 -7.93868131044331e-12 -4.37565111599237e-12    -4.23539723850233 -4.50802375479551e-12    -4.23539723850796          3023.464536
-Loop time of 0.0432235 on 1 procs for 1 steps with 256 atoms
+         0                     0     -905.26035374198     -905.26035374198     280.821868911936 -2.17863301363486e-13 -1.51382820542358e-11     280.821868911937 -1.47466796644432e-11     280.821868911923          3023.464536
+         1                     0     -905.26035374198     -905.26035374198     280.821868911936 -2.17863301363486e-13 -1.51382820542358e-11     280.821868911937 -1.47466796644432e-11     280.821868911923          3023.464536
+Loop time of 0.0353138 on 1 procs for 1 steps with 256 atoms
 
-99.9% CPU use with 1 MPI tasks x no OpenMP threads
+99.7% CPU use with 1 MPI tasks x no OpenMP threads
 
 Minimization stats:
-  Stopping criterion = force tolerance
+  Stopping criterion = quadratic factors are zero
   Energy initial, next-to-last, final = 
-     -906.229948403704  -906.229948403704  -906.229948403704
-  Force two-norm initial, final = 2.1162193e-14 1.9585255e-14
-  Force max component initial, final = 1.5404344e-15 1.4710455e-15
-  Final line search alpha, max atom move = 1 1.4710455e-15
+      -905.26035374198   -905.26035374198   -905.26035374198
+  Force two-norm initial, final = 1.3546931e-14 1.3546931e-14
+  Force max component initial, final = 9.15934e-16 9.15934e-16
+  Final line search alpha, max atom move = 1 9.15934e-16
   Iterations, force evaluations = 1 2
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 0.039124   | 0.039124   | 0.039124   |   0.0 | 90.51
+Pair    | 0.03094    | 0.03094    | 0.03094    |   0.0 | 87.62
 Neigh   | 0          | 0          | 0          |   0.0 |  0.00
-Comm    | 4.3584e-05 | 4.3584e-05 | 4.3584e-05 |   0.0 |  0.10
+Comm    | 0.00010002 | 0.00010002 | 0.00010002 |   0.0 |  0.28
 Output  | 0          | 0          | 0          |   0.0 |  0.00
 Modify  | 0          | 0          | 0          |   0.0 |  0.00
-Other   |            | 0.004056   |            |       |  9.38
+Other   |            | 0.004273   |            |       | 12.10
 
 Nlocal:            256 ave         256 max         256 min
 Histogram: 1 0 0 0 0 0 0 0 0 0

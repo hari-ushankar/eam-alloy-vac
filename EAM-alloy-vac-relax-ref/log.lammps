@@ -1,0 +1,110 @@
+LAMMPS (22 Dec 2022)
+units 	metal
+dimension 	3
+boundary 	p p p
+atom_style 	atomic
+atom_modify map yes
+read_data 	initial_new.lmp
+Reading data file ...
+  orthogonal box = (0 0 0) to (14.46 14.46 14.46)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  255 atoms
+  read_data CPU = 0.001 seconds
+include 	potential.inp
+#pair_style 	pace
+#pair_coeff 	* * copper.yace Cu
+#pair_style hybrid/overlay pace table linear 6901
+#pair_coeff * * pace ../potential.yace Cu
+#pair_coeff 1 1 table ../potential_pairpot.table Cu_Cu
+pair_style eam/alloy
+pair_coeff * * Cu.eam.alloy Cu
+variable dumptime 	equal 1
+variable thermotime 	equal 1
+min_style 	cg
+
+compute energy all pe/atom
+dump 1 	all custom ${dumptime} dump.out id type element xsu ysu zsu fx fy fz
+dump 1 	all custom 1 dump.out id type element xsu ysu zsu fx fy fz
+#dump 4 	all custom ${dumptime} dump.cfg id type element x y z fx fy fz c_energy
+#dump 5 	all custom ${dumptime} lmp_dump.xyz id type element x y z fx fy fz c_energy
+#dump_modify 5 sort id element Cu
+#dump_modify 4 sort id element Cu
+dump_modify 1 sort id format line "%d %d %s %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g"
+dump_modify 1 element Cu
+
+
+#dump 2 all custom ${dumptime} dump_e_atom.out id type xsu ysu zsu c_peratom
+#dump_modify 2 sort id format line "%d %d %20.15g %20.15g %20.15g %20.15g"
+
+#dump 3 all custom 100 dump3_*.out id type x y z
+#dump_modify 3 sort id
+
+thermo_style 	custom step temp pe etotal pxx pxy pxz pyy pyz pzz vol
+thermo_modify 	format float %20.15g
+thermo 	${thermotime}
+thermo 	1
+#fix         br all box/relax x 10. y 10. z 10.
+minimize 	0.0 0.0001 100000 10000000
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.506786
+  ghost atom cutoff = 7.506786
+  binsize = 3.753393, bins = 4 4 4
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.963 | 5.963 | 5.963 Mbytes
+   Step          Temp          PotEng         TotEng          Pxx            Pxy            Pxz            Pyy            Pyz            Pzz           Volume    
+         0                     0    -901.390806683616    -901.390806683616    -1259.04540486089 1.48551516879069e-12 -8.97192329665663e-13    -1259.04540486089 5.12576273587678e-12    -1259.04540486087          3023.464536
+         1                     0    -901.417546067607    -901.417546067607    -1519.69678965342 -1.12149041208208e-11 -7.6923211215597e-12    -1519.69678965342 -8.03796078954565e-12    -1519.69678965342          3023.464536
+         2                     0    -901.423543391372    -901.423543391372    -1557.60309761886 7.26578706319406e-12 4.15503005132049e-12    -1557.60309761885 2.75776330839856e-12    -1557.60309761886          3023.464536
+         3                     0    -901.425899587459    -901.425899587459    -1612.45804372709 -3.64760160257516e-12 -6.75835861444873e-12    -1612.45804372708 -1.17664567825005e-12    -1612.45804372707          3023.464536
+         4                     0    -901.426362538827    -901.426362538827    -1609.28841223896 -1.19355995987489e-11 6.26563823668152e-12    -1609.28841223898 -3.27254579263295e-12    -1609.28841223897          3023.464536
+         5                     0    -901.426458362479    -901.426458362479    -1606.19365574611 -1.29651645672177e-11 -1.19650157407052e-11    -1606.19365574611 -3.27254579263295e-12    -1606.19365574613          3023.464536
+         6                     0    -901.426473059438    -901.426473059438    -1608.17616208953 3.14752718931888e-12 -3.33873211203452e-12    -1608.17616208951 3.35344018301264e-12    -1608.17616208953          3023.464536
+         7                     0    -901.426475620219    -901.426475620219    -1609.34450833442 -7.48640812786594e-12 -4.80218517435802e-12    -1609.34450833442 -1.57302819111054e-11    -1609.34450833442          3023.464536
+         8                     0    -901.426476404891    -901.426476404891    -1609.22341319557 1.11045935884848e-12 4.21386233523299e-12    -1609.22341319557  7.3172653116175e-12    -1609.22341319555          3023.464536
+         9                     0    -901.426476443607    -901.426476443607    -1609.09449922519 -9.40581139051134e-12 -5.62583714913305e-12    -1609.09449922519 5.19194905527835e-12    -1609.09449922519          3023.464536
+        10                     0    -901.426476454946    -901.426476454946    -1609.08511510525 -4.00059530605017e-12 -7.29520320515031e-12    -1609.08511510527 -1.19797238116833e-11    -1609.08511510524          3023.464536
+        11                     0    -901.426476457014    -901.426476457014    -1609.10700753305 1.91204922715633e-13 3.22842157969858e-12    -1609.10700753306 -1.12957985112005e-11    -1609.10700753305          3023.464536
+Loop time of 0.0155858 on 1 procs for 11 steps with 255 atoms
+
+99.7% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = force tolerance
+  Energy initial, next-to-last, final = 
+     -901.390806683616  -901.426476454946  -901.426476457014
+  Force two-norm initial, final = 0.59635806 7.4683037e-05
+  Force max component initial, final = 0.11771406 6.7374304e-06
+  Final line search alpha, max atom move = 1 6.7374304e-06
+  Iterations, force evaluations = 11 22
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0082318  | 0.0082318  | 0.0082318  |   0.0 | 52.82
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00013792 | 0.00013792 | 0.00013792 |   0.0 |  0.88
+Output  | 0.0064404  | 0.0064404  | 0.0064404  |   0.0 | 41.32
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0007757  |            |       |  4.98
+
+Nlocal:            255 ave         255 max         255 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:           2194 ave        2194 max        2194 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:          17780 ave       17780 max       17780 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 17780
+Ave neighs/atom = 69.72549
+Neighbor list builds = 0
+Dangerous builds = 0
+#unfix		br
+Total wall time: 0:00:00
